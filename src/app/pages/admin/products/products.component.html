@@ -1,0 +1,101 @@
+ <!-- LISTA COM TODOS OS PRODUTOS DISPONIVEIS -->
+<div class="row">
+   <div [ngClass]="isSidePainelVisible? 'col-8' : 'col-12' ">
+     <div class="card">
+        <div class="card-header bg-primary">
+             <div class="row">
+                <div class="col-6">
+                  Produtos
+                </div>
+                <div class="col-6 text-end">
+                  <button class="btn btn-sm btn-success" (click)="openSidePainel()"> New </button>
+                </div>
+             </div>
+        </div>
+
+        <!-- CARDS QUE MOSTRAM OS PRODUTOS -->
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3" *ngFor="let prod of productList">
+              <div class="card" >
+                <img class="card-img-top" [src]="prod.productImageUrl" alt="Card image">
+                <div class="card-body">
+                  <h4 class="card-title"> {{prod.productName}} </h4>
+                  <p class="card-text"> {{prod.categoryName}} </p>
+                  <a class="btn btn-primary" (click)="onEdit(prod)">Editar</a>
+                  <a href="#" class="btn btn-primary mx-2">Excluir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+
+   <!-- SIDE BAR PARA O ADM ADICIONAR NOVOS PRODUTOS -->
+
+   <div class="col-4" *ngIf="isSidePainelVisible">
+    <div class="card">
+       <div class="card-header bg-primary">
+            <div class="row">
+               <div class="col-6">
+                 Novo Produto
+               </div>
+               <div class="col-6 text-end">
+                 <button class="btn btn-sm btn-success"> Close </button>
+               </div>
+            </div>
+       </div>
+       <!-- FORMULARIO PARA CRIAÇÃO DE NOVO PRODUTO -->
+       <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <label for=""> SKU </label>
+            <input type="text" [(ngModel)]="productObj.productSku" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for=""> Nome </label>
+            <input type="text" [(ngModel)]="productObj.productName" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for=""> Nome reduzido </label>
+            <input type="text" [(ngModel)]="productObj.productShortName" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for=""> Valor </label>
+            <input type="text" [(ngModel)]="productObj.productPrice" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for=""> Categoria </label>
+            <select  [(ngModel)]="productObj.categoryId" class="form-select">
+              <option *ngFor="let cat of categoryList" [value]="cat.categoryId"> {{cat.categoryName}} </option>
+            </select>
+          </div>
+          <div class="col-6">
+            <label for=""> Tempo de entrega </label>
+            <input type="text" [(ngModel)]="productObj.deliveryTimeSpan" class="form-control">
+          </div>
+          <div class="col-12">
+            <label for=""> Imagem do Produto </label>
+            <input type="text" [(ngModel)]="productObj.productImageUrl" class="form-control">
+          </div>
+          <div class="col-12">
+            <label for=""> Descrição </label>
+            <input type="text" [(ngModel)]="productObj.productDescription" class="form-control" style=" height: 100px " >
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-success"> Limpar Form</button>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-success" (click)="onSave()"> Criar Produto</button>
+            </div>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
